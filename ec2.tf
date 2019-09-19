@@ -4,7 +4,5 @@ resource "aws_instance" "vms" {
   subnet_id              = "${aws_subnet.public.id}"
   iam_instance_profile = "${aws_iam_instance_profile.web_profile.name}"
   user_data = "${file("scripts/apache.sh")}"
-  tags = {
-      Name = "EC2InstanceOne"
-  }
+  tags = "${merge(var.common_tags, var.email)}"
 }
