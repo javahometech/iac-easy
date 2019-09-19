@@ -37,3 +37,18 @@ resource "aws_lb_listener" "front_end" {
     target_group_arn = "${aws_lb_target_group.tg_one.arn}"
   }
 }
+
+resource "aws_lb_listener_rule" "orders" {
+  listener_arn = "${aws_lb_listener.front_end.arn}"
+  priority     = 100
+
+  action {
+    type             = "forward"
+    target_group_arn = "${aws_lb_target_group.tg_two.arn}"
+  }
+
+  condition {
+    field  = "path-pattern"
+    values = ["/orders/*"]
+  }
+}

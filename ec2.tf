@@ -3,6 +3,7 @@ resource "aws_instance" "vms" {
   instance_type          = "t2.micro"
   subnet_id              = "${aws_subnet.public.id}"
   iam_instance_profile = "${aws_iam_instance_profile.web_profile.name}"
+  user_data = "${file("scripts/apache.sh")}"
   tags = {
       Name = "EC2InstanceOne"
   }
